@@ -1,11 +1,14 @@
-# Practical 8 workflow trigger test
+
 name: Container Security Analysis
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,6 +33,7 @@ jobs:
           output: trivy-results.sarif
           severity: HIGH,CRITICAL
           ignore-unfixed: true
+          exit-code: '0'
 
       - name: Upload Trivy Results
         uses: github/codeql-action/upload-sarif@v3
